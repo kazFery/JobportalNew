@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use app\Models\User;
 
@@ -21,7 +22,8 @@ class RepresentativeFactory extends Factory
             'firstName' => $this->faker->firstName(),
             'lastName' => $this->faker->lastName(),
             'phone' => $this->faker->phoneNumber(),
-            'user_id' => $this->faker->unique()->numberBetween(12, 23) // User::all()->count())
+            'user_id' => $this->faker->unique()->numberBetween(12, 23), // User::all()->count())
+            'company_id' => $this->faker->numberBetween(1, Company::all()->count()),
         ];
     }
 }
