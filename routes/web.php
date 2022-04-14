@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\applicationController;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/list', [applicationController::class, 'listOfApplication']);
+Route::get('/company/show', [CompanyController::class, 'index']);
+Route::post('/company/register', [CompanyController::class, 'store']);
+Route::get('/company/list-applications', [applicationController::class, 'listOfApplication']);
+Route::get('/company/list-applications/{jobpostID}', [applicationController::class, 'listOfApplicationByJobPost']);
+Route::get('/application/status/update', [applicationController::class, 'updateStatus'])->name('update.status');

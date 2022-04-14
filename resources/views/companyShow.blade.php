@@ -11,20 +11,20 @@
 </head>
 
 <body>
-    <h1 calss="text-center"> List Of Applications</h1>
+    <h1 calss="text-center"> Company Information</h1>
     <table class="table">
-        <th scope="col">candidate firstName</th>
-        <th scope="col">LastName</th>
-        <th scope="col">job Post ID</th>
-        <th scope="col"> Date </th>
-        <th scope="col">status</th>
-        @foreach ($applications as $value)
+        <th scope="col">Company Name</th>
+        <th scope="col"> Phone</th>
+        <th scope="col">email</th>
+        <th scope="col"> URL </th>
+        <th scope="col">Location</th>
+        @foreach ($companyInfo as $company)
         <tr>
-            <td>{{$value->firstName}}</td>
-            <td>{{$value->lastName}}</td>
-            <td>{{$value->jobPost_id}}</td>
-            <td>{{$value->appliedDate}}</td>
-            <td>{{$value->status}}</td>
+            <td>{{$company-> companyName}}</td>
+            <td>{{$company-> phone}}</td>
+            <td>{{$company->email}}</td>
+            <td>{{$company-> websiteURL}}</td>
+            <td>{{$company->Location_id}}</td>
 
         </tr>
         @endforeach

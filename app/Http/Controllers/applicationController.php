@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ApplicationDetail;
+use App\Models\Company;
 use App\Models\Representative;
 use App\Models\JobPost;
 use Illuminate\Http\Request;
@@ -15,11 +16,31 @@ class applicationController extends Controller
     {
         $id = Auth::user()->id;
         $companyID  = Representative::where('user_id', $id)->get()->pluck('company_id'); //
+        $companyName = Company::where('id', $companyID)->get(['companyName'])->pluck('companyName');
         //return view('list', ['name' => $companyID]);
         $jobpostCompany = JobPost::where('company_id', $companyID)->get(['id']);
-        $data = ApplicationDetail::wherein('jobpost_id', $jobpostCompany)->get();
-        //$data = ApplicationDetail::join('candidates', 'candidates.id', '=', 'applicationDetailes.candidate_id')
-        //   ->get();  //['candidates.firstName', 'candidates.lastName', 'applicationDetailes.jobPost_id', 'applicationDetailes.appliedDate']
-        return view('list', ['applications' => $data]);
+        //$data = ApplicationDetail::
+        $data = ApplicationDetail::join('candidates', 'candidates.id', '=', 'applicationDetailes.candidate_id')->wherein('jobpost_id', $jobpostCompany)
+            ->get(['candidates.firstName', 'candidates.lastName', 'applicationDetailes.jobPost_id', 'applicationDetailes.appliedDate', 'applicationDetailes.status']);
+        return view('list-applications', ['applications' => $data])->with('companyName', $companyName);
+    }
+
+    function listOfApplicationByJobPost($jobPostID)
+    {
+        $id = Auth::user()->id;
+        $companyID  = Representative::where('user_id', $id)->get()->pluck('company_id'); //
+        $companyName = Company::where('id', $companyID)->get(['companyName'])->pluck('companyName');
+        $data = ApplicationDetail::join('candidates', 'candidates.id', '=', 'applicationDetailes.candidate_id')->where('jobpost_id', $jobPostID)
+            ->get(['candidates.firstName', 'candidates.lastName', 'applicationDetailes.jobPost_id', 'applicationDetailes.appliedDate', 'applicationDetailes.status']);
+        return view('list-applications', ['applications' => $data])->with('companyName', $companyName);
+    }
+
+    public function updateStatus(Request $request)
+    {
+
+        $application = ApplicationDetail::find($request->application_id);
+        $application->status = $request->status;
+        $application->save();
+        return response()->json(['success' => 'Status change successfully.']);
     }
 }
