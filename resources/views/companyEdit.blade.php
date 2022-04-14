@@ -18,26 +18,28 @@
         @endif
         <div class="card">
             <div class="card-header text-center font-weight-bold">
-                - Add Company Form
+                -Edit Company Form
             </div>
             <div class="card-body">
-                <form name="add-company" id="add-company" method="PUT" action="/company/register">
+
+                <form name="add-company" id="add-company" method="POST" action=" {{ url('/company/edit'.$company->id) }}">
                     @csrf
+                    @method('PUT')
                     <div class="form-group">
                         <label for="companyName">Company Name:</label>
-                        <input type="text" id="companyName" name="companyName" class="form-control" required="">
+                        <input type="text" id="companyName" name="companyName" value='{{$company->companyName }}' class="form-control" required="">
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone: </label>
-                        <input type="text" name="phone" id="phone" class="form-control" required="">
+                        <input type="text" name="phone" id="phone" class="form-control" value='{{$company->phone }}' required="">
                     </div>
                     <div class="form-group">
                         <label for="phone">Email: </label>
-                        <input type="text" name="email" id="email" class="form-control" required="">
+                        <input type="text" name="email" id="email" value='{{$company->email }}' class="form-control" required="">
                     </div>
                     <div class="form-group">
                         <label for="phone">WebURL: </label>
-                        <input type="text" name="weburl" id="weburl" class="form-control" required="">
+                        <input type="text" name="weburl" id="weburl" value='{{$company->websiteURL}}' class="form-control" required="">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>

@@ -20,8 +20,8 @@ class applicationController extends Controller
         //return view('list', ['name' => $companyID]);
         $jobpostCompany = JobPost::where('company_id', $companyID)->get(['id']);
         //$data = ApplicationDetail::
-        $data = ApplicationDetail::join('candidates', 'candidates.id', '=', 'applicationDetailes.candidate_id')->wherein('jobpost_id', $jobpostCompany)
-            ->get(['candidates.firstName', 'candidates.lastName', 'applicationDetailes.jobPost_id', 'applicationDetailes.appliedDate', 'applicationDetailes.status']);
+        $data = ApplicationDetail::join('candidates', 'candidates.id', '=', 'applicationDetailes.candidate_id')->wherein('jobpost_id', $jobpostCompany)->join('jobPosts', 'jobPosts.id', "=", "applicationDetailes.jobpost_id")
+            ->get(['candidates.firstName', 'candidates.lastName', 'jobPosts.title', 'applicationDetailes.appliedDate', 'applicationDetailes.status']);
         return view('list-applications', ['applications' => $data])->with('companyName', $companyName);
     }
 
@@ -30,8 +30,8 @@ class applicationController extends Controller
         $id = Auth::user()->id;
         $companyID  = Representative::where('user_id', $id)->get()->pluck('company_id'); //
         $companyName = Company::where('id', $companyID)->get(['companyName'])->pluck('companyName');
-        $data = ApplicationDetail::join('candidates', 'candidates.id', '=', 'applicationDetailes.candidate_id')->where('jobpost_id', $jobPostID)
-            ->get(['candidates.firstName', 'candidates.lastName', 'applicationDetailes.jobPost_id', 'applicationDetailes.appliedDate', 'applicationDetailes.status']);
+        $data = ApplicationDetail::join('candidates', 'candidates.id', '=', 'applicationDetailes.candidate_id')->where('jobpost_id', $jobPostID)->join('jobPosts', 'jobPosts.id', "=", "applicationDetailes.jobpost_id")
+            ->get(['candidates.firstName', 'candidates.lastName', 'jobPosts.title', 'applicationDetailes.appliedDate', 'applicationDetailes.status']);
         return view('list-applications', ['applications' => $data])->with('companyName', $companyName);
     }
 

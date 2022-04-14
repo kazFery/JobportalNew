@@ -12,18 +12,23 @@
 </head>
 
 <body>
-    <h1 calss="text-center"> List Of Applications for company {{$companyName}}</h1>
+    <div class="card-header text-center font-weight-bold">
+        List Of Applications for company {{$companyName}}
+    </div>
+
     <table class="table">
-        <th scope="col">candidate firstName</th>
-        <th scope="col">LastName</th>
-        <th scope="col">job Post ID</th>
-        <th scope="col"> Applied Date </th>
-        <th scope="col">Accepted</th>
+        <thead class="table-light">
+            <th>candidate firstName</th>
+            <th>LastName</th>
+            <th>job Post Title</th>
+            <th> Applied Date </th>
+            <th>Accepted</th>
+        </thead>
         @foreach ($applications as $value)
         <tr>
             <td>{{$value->firstName}}</td>
             <td>{{$value->lastName}}</td>
-            <td>{{$value->jobPost_id}}</td>
+            <td>{{$value->title}}</td>
             <td>{{$value->appliedDate}}</td>
             {{$value->id}}
             <td>

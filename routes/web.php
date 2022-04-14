@@ -23,7 +23,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/company/show', [CompanyController::class, 'index']);
+Route::get('/company/{id}/edit', [CompanyController::class, 'edit']);
+Route::put('/company/{id}/update', [CompanyController::class, 'update']);
 Route::post('/company/register', [CompanyController::class, 'store']);
+Route::view('/company/register', 'companyRegister');
 Route::get('/company/list-applications', [applicationController::class, 'listOfApplication']);
 Route::get('/company/list-applications/{jobpostID}', [applicationController::class, 'listOfApplicationByJobPost']);
 Route::get('/application/status/update', [applicationController::class, 'updateStatus'])->name('update.status');

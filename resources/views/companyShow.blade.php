@@ -13,23 +13,34 @@
 <body>
     <h1 calss="text-center"> Company Information</h1>
     <table class="table">
-        <th scope="col">Company Name</th>
-        <th scope="col"> Phone</th>
-        <th scope="col">email</th>
-        <th scope="col"> URL </th>
-        <th scope="col">Location</th>
-        @foreach ($companyInfo as $company)
-        <tr>
-            <td>{{$company-> companyName}}</td>
-            <td>{{$company-> phone}}</td>
-            <td>{{$company->email}}</td>
-            <td>{{$company-> websiteURL}}</td>
-            <td>{{$company->Location_id}}</td>
 
+        @foreach ($company as $company)
+        <tr>
+            <td scope="row">Company Name</td>
+            <td>{{$company-> companyName}}</td>
+        </tr>
+        <tr>
+            <td scope="col"> Phone</td>
+            <td>{{$company-> phone}}</td>
+        </tr>
+        <tr>
+            <td scope="col">email</td>
+            <td>{{$company->email}}</td>
+        </tr>
+        <tr>
+            <td scope="col"> URL </td>
+            <td>{{$company-> websiteURL}}</td>
+        </tr>
+        <tr>
+            <td scope="col">Location</td>
+            <td>{{$company->Location_id}}</td>
         </tr>
         @endforeach
 
     </table>
+    <hr>
+    <a href="/company/{{$company->id}}/edit" calss="btn btn-default"> Edit </a>
+
     <script src="/js/app.js"></script>
 </body>
 
